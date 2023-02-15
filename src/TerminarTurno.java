@@ -9,7 +9,6 @@ public class TerminarTurno implements Runnable{
     public void run() {
         while(true){
             monitor.dispararTransicion(6);
-            Main.invariante1y2++;
         }
     }
 
