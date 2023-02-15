@@ -37,23 +37,23 @@ public class Monitor {
             }
         }
 
-        int f=0;
+        if(transicion == 6 || transicion == 10 || transicion == 4 || transicion == 5) {
+
+            log.logear(transicion);
+        }
+        
         if(encolados.size() != 0){
 
             for (Integer iterador:  encolados) {
 
               if(red.estaSensibilizada(iterador)){
                     colaDeHilos.get(iterador).signal();
-                    f=1;
                     break;
                 }
             }
 
 
-            /*if(f==0) { ESTE IF ESTÁ DE MAS
-                int random = rand.nextInt(encolados.size());
-                colaDeHilos.get(encolados.get(random)).signal();
-            }*/
+  
         }
 
 
