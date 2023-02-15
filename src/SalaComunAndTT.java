@@ -12,10 +12,6 @@ public class SalaComunAndTT implements Runnable{
             monitor.dispararTransicion(8);
             monitor.dispararTransicion(9);
             monitor.dispararTransicion(10);
-
-            synchronized (this){
-                Main.invariante3++;
-            }
         }
     }
 }
