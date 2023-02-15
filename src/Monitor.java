@@ -7,7 +7,7 @@ public class Monitor {
     private Rdp red;
     private ReentrantLock lock;
     private ArrayList<Condition> colaDeHilos;
-    private ArrayList<Integer>encolados = new ArrayList<>();
+    private ArrayList<Integer>encolados = new ArrayList<Integer>();
     Random rand = new Random();
     //private Integer [] encolados = new Integer[10];
     //Agregar politica
@@ -23,25 +23,42 @@ public class Monitor {
             }
     }
 
-    public void dispararTransicion(int transicion){
+    public void dispararTransicion(Integer transicion){
         lock.lock();
         while(!red.disparar(transicion)){
             try{
                 encolados.add(transicion);
                 colaDeHilos.get(transicion).await();
-                encolados.remove(encolados.indexOf(transicion));
+                encolados.remove(transicion);
             }
             catch (Exception e){
                 e.printStackTrace();
                 return;
             }
         }
-        System.out.println("Se disparo la transicion: " + transicion);
+
+        int f=0;
         if(encolados.size() != 0){
-            int random = rand.nextInt(encolados.size());
-            colaDeHilos.get(encolados.get(random)).signal();
+
+            for (Integer iterador:  encolados) {
+
+              if(red.estaSensibilizada(iterador)){
+                    colaDeHilos.get(iterador).signal();
+                    f=1;
+                    break;
+                }
+            }
+
+
+            /*if(f==0) { ESTE IF ESTÁ DE MAS
+                int random = rand.nextInt(encolados.size());
+                colaDeHilos.get(encolados.get(random)).signal();
+            }*/
         }
+
+
         lock.unlock();
 
     }
 }
+
