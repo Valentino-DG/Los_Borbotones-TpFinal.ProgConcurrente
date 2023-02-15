@@ -4,6 +4,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Monitor {
+    private Log log;
     private Rdp red;
     private ReentrantLock lock;
     private ArrayList<Condition> colaDeHilos;
@@ -12,7 +13,8 @@ public class Monitor {
     //private Integer [] encolados = new Integer[10];
     //Agregar politica
 
-    public Monitor(){
+    public Monitor(Log log){
+        this.log = log;
         this.red = new Rdp();
         this.lock = new ReentrantLock();
         this.colaDeHilos = new ArrayList<Condition>();
@@ -40,20 +42,21 @@ public class Monitor {
         if(transicion == 6 || transicion == 10 || transicion == 4 || transicion == 5) {
 
             log.logear(transicion);
+
         }
-        
+
         if(encolados.size() != 0){
 
             for (Integer iterador:  encolados) {
 
               if(red.estaSensibilizada(iterador)){
+
                     colaDeHilos.get(iterador).signal();
                     break;
                 }
             }
 
 
-  
         }
 
 
@@ -61,4 +64,3 @@ public class Monitor {
 
     }
 }
-
