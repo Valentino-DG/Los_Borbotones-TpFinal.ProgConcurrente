@@ -1,4 +1,4 @@
-import java.util.logging.*;
+mport java.util.logging.*;
 
 
 public class Main {
@@ -27,8 +27,13 @@ public class Main {
         kinesiologo1.start();
         kinesiologo2.start();
         
-        while(invariante1y2 + invariante3 < 1000){
-            
+        while((invariante1y2 + invariante3) < 1000){
+           try{ Thread.sleep(1);
+            System.out.println("invariante1y2 + invariante3: " + (invariante1y2 + invariante3));
+           }catch(Exception e){
+
+
+           }
         }
 
         System.out.println("No me rompi nada.");
